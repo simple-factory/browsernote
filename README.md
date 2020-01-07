@@ -1,2 +1,0 @@
-# browsernote
-browser based editor

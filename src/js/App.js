@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactMde from 'react-mde';
-import ReactDOM from "react-dom";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
-import logo from './logo.png';
-import './App.css';
+import logo from '../img/logo.png';
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -18,17 +16,15 @@ const converter = new Showdown.Converter({
 function App() {
   const [value, setValue] = React.useState("**Borwser Based Markdown Editor**");
   const [selectedTab, setSelectedTab] = React.useState("write");
-  const [minEditorHeight] = React.useState(400);
-  const [minPreviewHeight] = React.useState(400);
 
   return (
     <div className="editor">
       <header className="header">
-        <img src={logo} className="App-logo" width="400" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
 
       <div className="container">
-        <ReactMde
+      <ReactMde
           value={value}
           onChange={setValue}
           selectedTab={selectedTab}
@@ -36,10 +32,12 @@ function App() {
           generateMarkdownPreview={markdown =>
             Promise.resolve(converter.makeHtml(markdown))
           }
-          minEditorHeight={minEditorHeight}
-          minPreviewHeight={minPreviewHeight}
         />
       </div>
+
+      <footer>
+        <a href="https://www.websitepolicies.com/policies/view/1PIUhUmB">Privacy Policy</a>
+      </footer>
 
     </div>
   );

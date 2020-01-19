@@ -12,9 +12,21 @@ const converter = new Showdown.Converter({
   tasklists: true
 });
 
+const welcomeMsg = '# Borwser Based Markdown Editor \n**auto-save using localStorage**';
+
+const useStateWithLocalStorage = localStorageKey => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(localStorageKey) || welcomeMsg
+  );
+  React.useEffect(() => {
+    localStorage.setItem(localStorageKey, value);
+  }, [localStorageKey, value]);
+  return [value, setValue];
+};
 
 function App() {
-  const [value, setValue] = React.useState("**Borwser Based Markdown Editor**");
+  const [value, setValue] = useStateWithLocalStorage('BroserNote')
+  const onChange = value => setValue(value);
   const [selectedTab, setSelectedTab] = React.useState("write");
 
   return (
@@ -26,7 +38,7 @@ function App() {
       <div className="container">
       <ReactMde
           value={value}
-          onChange={setValue}
+          onChange={onChange}
           selectedTab={selectedTab}
           onTabChange={setSelectedTab}
           generateMarkdownPreview={markdown =>
